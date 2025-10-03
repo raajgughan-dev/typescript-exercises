@@ -121,3 +121,68 @@ These exercises introduce more robust features, including combining types, handl
 2. Define an interface `Authenticator` with a method `authenticate(key: string): boolean`.
 3. Create a type alias `Service` that is the intersection of `Logger` and `Authenticator` `(Logger & Authenticator)`.
 4. Define an object `apiService` of type `Service` and implement both methods.
+
+# Pro Level (Focus: Advanced Generics, Utility Types, and Complex Type Patterns)
+
+These exercises explore powerful features of the TypeScript type system, requiring a deeper understanding of type manipulation and pattern matching.
+
+## Exercise P1: Discriminated Unions for Type Safety
+
+> **Goal**: Create a union type that can be safely narrowed using a common, literal property (the discriminator).
+
+**Requirements**:
+
+1. Define an `interface` ActionLoad with properties: `type: "LOAD"` and `data: string[]`.
+2. Define an `interface` ActionError with properties: `type: "ERROR"` and `message: string`.
+3. Create a type alias `AppAction` which is the union of `ActionLoad | ActionError`.
+4. Write a function `handleAction(action: AppAction)` that uses a `switch` statement on the `action.type` property to correctly access either action.data (for LOAD) or `action.message` (for `ERROR`).
+
+## Exercise P2: Generic Constraints with `keyof`
+
+> **Goal**: Create a function that safely accesses a property of an object using generics and constraints.
+
+**Requirements**:
+
+1. Write a generic function `getProperty<T, K extends keyof T>` that accepts two arguments:
+   - `obj`: An object of type `T`.
+   - `key`: A property name of type `K` (must be a key of `T`).
+2. The function should return the value of the specified property (`T[K]`).
+3. Test the function with a predefined object (e.g., `{ a: 1, b: 'hello' }`) to ensure only valid keys can be passed.
+
+## Exercise P3: Utilizing Standard Utility Types
+
+> **Goal**: Apply the `Partial<T>` and `Required<T>` utility types for common data transformation scenarios.
+
+**Requirements**:
+
+1. Define an interface Settings with all properties being optional:
+   - `timeout?`: `number`
+   - `verbose?`: `boolean`
+2. Create a new type `FullSettings` using the `Required<T>` **utility type** based on `Settings`. Create an object of type `FullSettings` and verify all properties must be present.
+3. Define an interface `APIResponse` with required properties: `status: number`, `data: object`, and `message: string`.
+4. Create a new type `OptionalResponse` using the `Partial<T>` **utility type** based on `APIResponse`.
+
+## Exercise P4: Advanced Mapped Types
+
+> **Goal**: Create a mapped type that transforms properties of an existing interface into function types.
+
+**Requirements**:
+
+1. Define an interface Configuration with properties:
+   - `logging`: `boolean`
+   - `port`: `number`
+   - `host`: `string`
+2. Use a **mapped type** to create a new type Setters where:
+   - The property names are prefixed with `set` (e.g., `setLogging`).
+   - The property values are functions that take the original property's value type as an argument and return `void`.
+
+## Exercise P5: Conditional Types and Type Filtering
+
+> **Goal**: Write a conditional type to filter properties based on their value type.
+
+**Requirements**:
+
+1. Define an interface `UserProfile` with a mix of types: `id: number`, `name: string`, `isAdmin: boolean`, `preferences: object`.
+2. Write a **conditional type** `FilterKeys<T, Type>` that takes an object type `T` and a target value type `Type` (e.g., `string`).
+3. The resulting type should be a union of all **key names** in `T` whose corresponding value is assignable to `Type`.
+4. Test: Create a type alias `StringKeys` using `FilterKeys<UserProfile, string>`. The resulting type should only be `'name'`.
