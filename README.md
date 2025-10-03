@@ -59,3 +59,65 @@ The exercises in this section aim to solidify understanding of fundamental TypeS
 1. Declare an array named `logData`.
 2. This array must be able to hold elements that are either a `string` or a `number`.
 3. Initialize `logData` with at least three elements: one string, one number, and another string.
+
+# Intermediate Level (Focus: Union/Intersection, Generics, and Classes)
+
+These exercises introduce more robust features, including combining types, handling optionality, and basic object-oriented programming with classes.
+
+## Exercise I1: Optional and Readonly Properties
+
+> **Goal**: Modify an interface to include optional and immutable properties.
+
+**Requirements**:
+
+1. Define an interface `User` with three properties:
+
+   - `id`: `number` (Must be readonly)
+   - `username`: `string`
+   - `bio`: `string` (Must be optional)
+
+2. Create a user object and attempt to reassign the `id` property after initialization (This should result in a compiler error).
+
+## Exercise I2: Type Narrowing with Union Types
+
+> **Goal**: Write a function that uses runtime checks to narrow down a union type.
+
+**Requirements**:
+
+1. Write a function `processInput` that accepts a parameter `input` of the union type `string` | `number`.
+2. Inside the function, use type narrowing (`typeof` check) to:
+   - If `input` is a `string`, print the length of the string.
+   - If `input` is a `number`, print the value multiplied by 2.
+
+## Exercise I3: Basic Generics in Functions
+
+> **Goal**: Create a reusable function that can operate on data of any single type without losing type information.
+
+**Requirements**:
+
+1. Define a generic function `identity<T>` that accepts one argument of type `T`.
+2. The function should return the argument itself.
+3. Test the function: call it once with a number (e.g., `identity(42)`) and once with an array of booleans (e.g., `identity([true, false])`). Verify the return type inferred by the compiler is correct in both cases.
+
+## Exercise I4: Modeling with Classes
+
+> **Goal**: Define a class using access modifiers and a constructor.
+
+**Requirements**:
+
+1. Define a class `BankAccount` with the following properties and methods:
+   - A private property `balance` initialized to 0.
+   - A public property `accountHolderName` set via the constructor.
+   - A public method `deposit(amount: number)` that adds to the balance.
+   - A public method `getBalance()` that returns the current `balance`.
+
+## Exercise I5: Intersecting Types
+
+> **Goal**: Combine two separate interfaces into a single type using an intersection.
+
+**Requirements**:
+
+1. Define an interface `Logger` with a method `log(message: string): void`.
+2. Define an interface `Authenticator` with a method `authenticate(key: string): boolean`.
+3. Create a type alias `Service` that is the intersection of `Logger` and `Authenticator` `(Logger & Authenticator)`.
+4. Define an object `apiService` of type `Service` and implement both methods.
